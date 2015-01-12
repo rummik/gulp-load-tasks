@@ -1,0 +1,26 @@
+{
+  "name": "gulp-load-tasks",
+  "version": "0.8.0",
+  "description": "Task loader for Gulp",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:rummik/gulp-load-tasks"
+  },
+  "keywords": [
+    "gulp",
+    "task",
+    "tasks",
+    "loader",
+    "load"
+  ],
+  "author": "rummik",
+  "license": "MPL",
+  "bugs": {
+    "url": "https://github.com/rummik/gulp-load-tasks/issues"
+  },
+  "homepage": "https://github.com/rummik/gulp-load-tasks"
+}
