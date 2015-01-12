@@ -5,6 +5,10 @@ var path = require('path');
 module.exports = function(dir) {
 	'use strict';
 
+	if (typeof dir != 'string') {
+		dir = 'tasks';
+	}
+
 	if (dir[0] !== path.sep && dir.slice(0, 2) !== '.' + path.sep) {
 		dir = path.join(process.cwd(), dir);
 	}
