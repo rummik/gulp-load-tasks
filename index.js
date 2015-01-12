@@ -23,7 +23,7 @@ module.exports = function(dir) {
 				return;
 			}
 
-			var taskname = file.slice(0, -3);
+			var taskname = filename.slice(0, -3);
 			var taskinfo = require(file);
 
 			gulp.task.apply(gulp, [taskname].concat(taskinfo));
