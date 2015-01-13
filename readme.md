@@ -6,7 +6,7 @@ your Gulpfile.
 
 ## Usage
 
-In your Gulpfile.js:
+In your `Gulpfile.js`:
 ```javascript
 // Tasks are in `tasks/`
 require('gulp-load-tasks')();
