@@ -1,6 +1,6 @@
 {
   "name": "gulp-load-tasks",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "description": "Task loader for Gulp",
   "main": "index.js",
   "scripts": {
