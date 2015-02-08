@@ -2,6 +2,10 @@ var gulp = require('gulp');
 var fs = require('fs');
 var path = require('path');
 
+/**
+ * Gulp task loader.  Loads Gulp tasks from a directory, instead of Gulpfile.js
+ * @param {string} dir  Directory containing Gulp tasks
+ */
 module.exports = function(dir) {
 	'use strict';
 
