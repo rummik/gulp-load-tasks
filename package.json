@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/rummik/gulp-load-tasks/issues"
   },
-  "homepage": "https://github.com/rummik/gulp-load-tasks"
+  "homepage": "https://github.com/rummik/gulp-load-tasks",
+  "dependencies": {
+    "extend": "^2.0.1"
+  }
 }
