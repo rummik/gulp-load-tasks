@@ -27,7 +27,7 @@ module.exports = function(userOpts) {
 			var file = path.join(opts.dir, filename);
 			var stat = fs.statSync(file);
 
-			if (stat.isFile() && opts.extensions.indexOf(path.extname(filename)) != -1) {
+			if (stat.isFile() && opts.extensions.indexOf(path.extname(filename)) == -1) {
 				return;
 			}
 
