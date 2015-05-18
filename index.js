@@ -14,7 +14,7 @@ module.exports = function(userOpts) {
 
 	var opts = extend({
 		dir: 'tasks',
-		extensions: ['js']
+		extensions: ['.js']
 	}, userOpts);
 
 	if (opts.dir[0] !== path.sep && opts.dir.slice(0, 2) !== '.' + path.sep) {
