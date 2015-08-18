@@ -1,35 +1,37 @@
-var gulp = require('gulp');
 var fs = require('fs');
 var path = require('path');
+var util = require('util');
+var gulp = require('gulp');
 
-/**
- * Gulp task loader.  Loads Gulp tasks from a directory, instead of Gulpfile.js
- * @param {string} dir  Directory containing Gulp tasks
- */
-module.exports = function(dir) {
-	'use strict';
+module.exports = function (dir) {
+  'use strict';
 
-	if (typeof dir != 'string') {
-		dir = 'tasks';
-	}
+  var params = [].slice.call(arguments, 1);
 
-	if (dir[0] !== path.sep && dir.slice(0, 2) !== '.' + path.sep) {
-		dir = path.join(process.cwd(), dir);
-	}
+  if (typeof dir !== 'string') { dir = 'tasks'; }
 
-	fs
-		.readdirSync(dir)
-		.forEach(function(filename) {
-			var file = path.join(dir, filename);
-			var stat = fs.statSync(file);
+  if (dir[0] !== path.sep && dir.slice(0, 2) !== '.' + path.sep) {
+    dir = path.join(process.cwd(), dir);
+  }
 
-			if (stat.isFile() && filename.slice(-3) !== '.js') {
-				return;
-			}
+  fs.readdirSync(dir).forEach(function(fileName) {
+    var file = path.join(dir, fileName);
+    var stat = fs.statSync(file);
 
-			var taskname = filename.slice(0, -3);
-			var taskinfo = require(file);
+    if (stat.isFile() && fileName.slice(-3) !== '.js') { return; }
 
-			gulp.task.apply(gulp, [taskname].concat(taskinfo));
-		});
+    var taskName = fileName.slice(0, -3);
+    var taskInfo = require(file);
+
+    if (!util.isArray(taskInfo)) { taskInfo = [taskInfo]; }
+
+    var lastIndex = taskInfo.length - 1;
+    var task = taskInfo[lastIndex];
+
+    if (typeof task === 'function') {
+      taskInfo[lastIndex] = task.bind.apply(task, [gulp].concat(params));
+    }
+
+    gulp.task.apply(gulp, [taskName].concat(taskInfo));
+  });
 };
