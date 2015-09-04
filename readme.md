@@ -1,10 +1,7 @@
- Gulp Load Tasks [![Donations][]][gratipay]
+ Gulp Load Tasks
 =================
 Loads gulp tasks from a local directory (usually `tasks/`), rather than from
 your Gulpfile.
-
-[Donations]: http://img.shields.io/gratipay/rummik.png
-[gratipay]: https://www.gratipay.com/rummik/
 
 
 ## Usage
