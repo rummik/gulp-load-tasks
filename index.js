@@ -11,12 +11,18 @@ var extend = require('extend');
 /**
  * Gulp task loader.  Loads Gulp tasks from a directory, instead of Gulpfile.js
  *
- * @param {object} [options]
+ * @param {object|string} [options]
  * @param {string} [options.dir='tasks']  Directory containing Gulp tasks
  * @param {string[]} [options.extensions=['.js']] Allowed extensions
  */
 module.exports = function(userOpts) {
 	'use strict';
+
+	if (typeof userOpts == 'string') {
+		userOpts = {
+			dir: userOpts
+		};
+	}
 
 	var opts = extend({
 		dir: 'tasks',
