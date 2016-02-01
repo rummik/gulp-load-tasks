@@ -9,10 +9,10 @@ var path = require('path');
 var extend = require('extend');
 
 /**
- * Gulp task loader.  Loads Gulp tasks from a directory, instead of Gulpfile.js
+ * Gulp task loader. Loads Gulp tasks from a directory, instead of Gulpfile.js
  *
  * @param {object|string} [options]
- * @param {string} [options.dir='tasks']  Directory containing Gulp tasks
+ * @param {string} [options.dir='tasks'] Directory containing Gulp tasks
  * @param {string[]} [options.extensions=['.js']] Allowed extensions
  */
 module.exports = function(userOpts) {
