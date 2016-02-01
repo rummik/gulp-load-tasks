@@ -47,6 +47,19 @@ module.exports = function(userOpts) {
 			var taskname = path.basename(filename, extension);
 			var taskinfo = require(file);
 
+			if (opts.params !== undefined) {
+				if (!Array.isArray(taskInfo)) {
+					taskInfo = [taskInfo];
+				}
+
+				var index = taskInfo.length - 1;
+				var task = taskInfo[index];
+
+				if (typeof task === 'function') {
+					taskInfo[index] = task.bind.apply(task, [gulp].concat(opts.params));
+				}
+			}
+
 			gulp.task.apply(gulp, [taskname].concat(taskinfo));
 		});
 };
