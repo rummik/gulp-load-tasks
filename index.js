@@ -18,7 +18,7 @@ var extend = require('extend');
 module.exports = function(userOpts) {
 	'use strict';
 
-	if (typeof userOpts == 'string') {
+	if (typeof userOpts === 'string') {
 		userOpts = {
 			dir: userOpts
 		};
@@ -37,13 +37,14 @@ module.exports = function(userOpts) {
 		.readdirSync(opts.dir)
 		.forEach(function(filename) {
 			var file = path.join(opts.dir, filename);
+			var extension = path.extname(filename);
 			var stat = fs.statSync(file);
 
-			if (stat.isFile() && opts.extensions.indexOf(path.extname(filename)) == -1) {
+			if (stat.isFile() && opts.extensions.indexOf(extension) === -1) {
 				return;
 			}
 
-			var taskname = path.basename(filename, path.extname(filename));
+			var taskname = path.basename(filename, extension);
 			var taskinfo = require(file);
 
 			gulp.task.apply(gulp, [taskname].concat(taskinfo));
