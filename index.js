@@ -14,6 +14,7 @@ var extend = require('extend');
  * @param {object|string} [options]
  * @param {string} [options.dir='tasks'] Directory containing Gulp tasks
  * @param {string[]} [options.extensions=['.js']] Allowed extensions
+ * @param {*} [options.params] One or more (array) params to pass to tasks.
  */
 module.exports = function(userOpts) {
 	'use strict';
