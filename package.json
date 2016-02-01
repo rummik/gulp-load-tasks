@@ -25,6 +25,7 @@
   "homepage": "https://github.com/rummik/gulp-load-tasks",
   "devDependencies": {
     "gulp": "^3.8.11",
+    "gulp-jscs": "^3.0.2",
     "gulp-jshint": "^1.11.0"
   },
   "dependencies": {
