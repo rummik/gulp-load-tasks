@@ -1,1 +1,1 @@
-module.exports = [['jshint']];
+module.exports = [['jshint', 'test']];
