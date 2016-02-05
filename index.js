@@ -49,15 +49,15 @@ module.exports = function(userOpts) {
 			var taskinfo = require(file);
 
 			if (opts.params !== undefined) {
-				if (!Array.isArray(taskInfo)) {
-					taskInfo = [taskInfo];
+				if (!Array.isArray(taskinfo)) {
+					taskinfo = [taskinfo];
 				}
 
-				var index = taskInfo.length - 1;
-				var task = taskInfo[index];
+				var index = taskinfo.length - 1;
+				var task = taskinfo[index];
 
 				if (typeof task === 'function') {
-					taskInfo[index] = task.bind.apply(task, [gulp].concat(opts.params));
+					taskinfo[index] = task.bind.apply(task, [gulp].concat(opts.params));
 				}
 			}
 
