@@ -4,6 +4,7 @@
  */
 
 var gulp = require('gulp');
+var gutil = require('gulp-util');
 var fs = require('fs');
 var path = require('path');
 var extend = require('extend');
@@ -17,7 +18,7 @@ var extend = require('extend');
  */
 module.exports = function(userOpts) {
 	'use strict';
-
+	
 	if (typeof userOpts == 'string') {
 		userOpts = {
 			dir: userOpts
@@ -25,7 +26,7 @@ module.exports = function(userOpts) {
 	}
 
 	var opts = extend({
-		dir: 'tasks',
+		dir: 'tasks/',
 		extensions: ['.js']
 	}, userOpts);
 
@@ -33,19 +34,24 @@ module.exports = function(userOpts) {
 		opts.dir = path.join(process.cwd(), opts.dir);
 	}
 
-	fs
-		.readdirSync(opts.dir)
-		.forEach(function(filename) {
-			var file = path.join(opts.dir, filename);
-			var stat = fs.statSync(file);
+		fs.readdirSync(opts.dir)
+			.forEach(function(filename) {
+				gutil.log('[gulp-load-tasks]', filename.toString({ colors: true }));
 
-			if (stat.isFile() && opts.extensions.indexOf(path.extname(filename)) == -1) {
-				return;
-			}
+				var file = path.join(opts.dir, filename);
+				var fileExists = fs.existsSync(file);
 
-			var taskname = path.basename(filename, path.extname(filename));
-			var taskinfo = require(file);
+				if (!fileExists || opts.extensions.indexOf(path.extname(filename)) == -1) {
+					console.error(new Error('[gulp-load-tasks] File '+ filename +' not exists or not compatibility with extension'));
+				} else {
+					var taskname = path.basename(filename, path.extname(filename));
+					try {
+						var taskinfo = require(file);
+						gulp.task.apply(gulp, [taskname].concat(taskinfo));
+					} catch (err) {
+						console.error(new Error('[gulp-load-tasks] - ' + err));
+					}
 
-			gulp.task.apply(gulp, [taskname].concat(taskinfo));
-		});
+				}
+			});
 };
