@@ -1,6 +1,6 @@
 {
 	"indent": "tab",
-  "undef": true,
-  "unused": true,
-  "predef": [ "require", "module", "process", "console"]
+	"undef": true,
+	"unused": true,
+	"predef": [ "require", "module", "process", "console"]
 }
