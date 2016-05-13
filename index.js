@@ -9,16 +9,17 @@ var path = require('path');
 var extend = require('extend');
 
 /**
- * Gulp task loader.  Loads Gulp tasks from a directory, instead of Gulpfile.js
+ * Gulp task loader. Loads Gulp tasks from a directory, instead of Gulpfile.js
  *
  * @param {object|string} [options]
- * @param {string} [options.dir='tasks']  Directory containing Gulp tasks
+ * @param {string} [options.dir='tasks'] Directory containing Gulp tasks
  * @param {string[]} [options.extensions=['.js']] Allowed extensions
+ * @param {*} [options.params] One or more (array) params to pass to tasks.
  */
 module.exports = function(userOpts) {
 	'use strict';
 
-	if (typeof userOpts == 'string') {
+	if (typeof userOpts === 'string') {
 		userOpts = {
 			dir: userOpts
 		};
@@ -37,14 +38,28 @@ module.exports = function(userOpts) {
 		.readdirSync(opts.dir)
 		.forEach(function(filename) {
 			var file = path.join(opts.dir, filename);
+			var extension = path.extname(filename);
 			var stat = fs.statSync(file);
 
-			if (stat.isFile() && opts.extensions.indexOf(path.extname(filename)) == -1) {
+			if (stat.isFile() && opts.extensions.indexOf(extension) === -1) {
 				return;
 			}
 
-			var taskname = path.basename(filename, path.extname(filename));
+			var taskname = path.basename(filename, extension);
 			var taskinfo = require(file);
+
+			if (opts.params !== undefined) {
+				if (!Array.isArray(taskinfo)) {
+					taskinfo = [taskinfo];
+				}
+
+				var index = taskinfo.length - 1;
+				var task = taskinfo[index];
+
+				if (typeof task === 'function') {
+					taskinfo[index] = task.bind.apply(task, [gulp].concat(opts.params));
+				}
+			}
 
 			gulp.task.apply(gulp, [taskname].concat(taskinfo));
 		});
